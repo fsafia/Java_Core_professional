@@ -17,7 +17,7 @@ public class MainDB {
 //            updateToParents(4, "Anna", 2);
 //            deleteFromParents(4);
 //            selectFromParents(3 );
-//            deleteTable("parents");
+           deleteTable("parents");
 
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
@@ -45,7 +45,7 @@ public class MainDB {
 
     public static void createTable(String tableName, String idColumnName, String textColumnName){
 
-        String sql = String.format("CREATE TABLE `%s` ( `%s` INTEGER, `%s` TEXT );", tableName, idColumnName, textColumnName);
+        String sql = String.format("CREATE TABLE IF NOT EXISTS `%s` ( `%s` INTEGER, `%s` TEXT );", tableName, idColumnName, textColumnName);
         try {
             stmt.execute(sql);
         } catch (SQLException e) {
@@ -54,9 +54,10 @@ public class MainDB {
     }
 
     public static void deleteTable(String tableName){
-        String sql = String.format("DROP TABLE IF EXISTS '%s'", tableName);
+        //String sql = String.format("DROP TABLE IF EXISTS '%s'", tableName);
+        //String sql = String.format("DROP TABLE IF EXISTS " + tableName);
         try {
-            stmt.execute(sql);
+            stmt.execute("DROP TABLE IF EXISTS " + tableName);
         } catch (SQLException e) {
             e.printStackTrace();
         }
