@@ -3,6 +3,7 @@ package lesson3;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Scanner;
 
 public class Start {
     public void task1(){
@@ -34,18 +35,48 @@ public class Start {
         in.close();
     }
 
+    public void task3(String file) throws  IOException{
+        RandomAccessFile randomAccessFile = new RandomAccessFile(file, "r");
+        long numberCharsInOnePage = 1800;
+        double pageMax = randomAccessFile.length()/numberCharsInOnePage;
+        System.out.println("В книге всего " + pageMax + " страниц. ");
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Введите номер страницы : ");
+        long pageNumber = scanner.nextLong();
 
-    public static void main(String[] args) {
-        Start start = new Start();
-        start.task1();
+        if( pageNumber < pageMax){
+            long pageNumberStart = numberCharsInOnePage  * (pageNumber-1);
+            randomAccessFile.seek(pageNumberStart);
 
-        try{
-            start.task2();
-        } catch (IOException e){
-            e.printStackTrace();
-        }
-        long t = System.currentTimeMillis();
+            for (long i = pageNumberStart; i <= numberCharsInOnePage * pageNumber -1 ; i++) {
+                System.out.print((char) randomAccessFile.read());
+            }
+        } else System.out.println("В книге всего нет страницы с номером: " + pageNumber);
+
 
 
     }
+
+    public static void main(String[] args) {
+       Start start = new Start();
+//        start.task1();
+//
+//        try{
+//            start.task2();
+//        } catch (IOException e){
+//            e.printStackTrace();
+//        }
+//        //long t = System.currentTimeMillis();
+
+        try{
+            start.task3("/home/safia/courses/Java2/OstrovSokrovish.txt");
+        } catch (IOException e){
+            e.printStackTrace();
+        }
+    }
+
+
+
+
+
 }
