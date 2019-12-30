@@ -18,11 +18,6 @@ Jingle all the way
 Oh, what fun it is to ride
 In a one-horse open sleigh
 
-I love those jingle bells
-Those holiday jingle bells
-All those happy jingle be-double-les
-I love those jingle bells
-Jingle all the way
 К нам на праздничную ёлку
 Ждём гостей из разных мест,
 Все не сердятся нисколько,
@@ -31,3 +26,10 @@ Jingle all the way
 А не просто так идёт,
 Открывается, как книжка,
 Наш весёлый Новый Год!
+
+I love those jingle bells
+Those holiday jingle bells
+All those happy jingle be-double-les
+I love those jingle bells
+Jingle all the way
+123456789

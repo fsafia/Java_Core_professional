@@ -6,11 +6,11 @@ import java.util.Collections;
 import java.util.Scanner;
 
 public class Start {
-    public void task1(){
-        try(FileInputStream in = new FileInputStream("/home/safia/courses/Java2/text.txt")) {
+    public void task1() {
+        try (FileInputStream in = new FileInputStream("/home/safia/courses/Java2/text.txt")) {
             int x;
-            byte[] ar =  new byte[50];
-            while ((x = in.read(ar)) != -1){
+            byte[] ar = new byte[50];
+            while ((x = in.read(ar)) != -1) {
                 System.out.print(new String(ar, 0, x, "UTF-8"));
             }
         } catch (IOException e) {
@@ -18,7 +18,7 @@ public class Start {
         }
     }
 
-    public void task2() throws IOException{
+    public void task2() throws IOException {
         ArrayList<InputStream> arrayList = new ArrayList<>();
         arrayList.add(new FileInputStream("/home/safia/courses/Java2/homeWork/song1.txt"));
         arrayList.add(new FileInputStream("/home/safia/courses/Java2/homeWork/song2.txt"));
@@ -29,36 +29,61 @@ public class Start {
 
         int x;
 
-        while ((x = in.read()) !=  -1){
+        while ((x = in.read()) != -1) {
             System.out.print((char) x);
         }
         in.close();
     }
 
-    public void task3(String file) throws  IOException{
+    public void task3(String file) throws IOException {
         RandomAccessFile randomAccessFile = new RandomAccessFile(file, "r");
         long numberCharsInOnePage = 1800;
-        double pageMax = randomAccessFile.length()/numberCharsInOnePage;
+        double pageMax = randomAccessFile.length() / numberCharsInOnePage;
         System.out.println("В книге всего " + pageMax + " страниц. ");
         Scanner scanner = new Scanner(System.in);
         System.out.println("Введите номер страницы : ");
         long pageNumber = scanner.nextLong();
 
-        if( pageNumber < pageMax){
-            long pageNumberStart = numberCharsInOnePage  * (pageNumber-1);
+        if (pageNumber > pageMax) {
+            System.out.println("В книге всего нет страницы с номером: " + pageNumber);
+        }
+
+        while (pageNumber <= pageMax) {
+            long pageNumberStart = numberCharsInOnePage * (pageNumber - 1);
             randomAccessFile.seek(pageNumberStart);
 
-            for (long i = pageNumberStart; i <= numberCharsInOnePage * pageNumber -1 ; i++) {
+            for (long i = pageNumberStart; i <= numberCharsInOnePage * pageNumber - 1; i++) {
                 System.out.print((char) randomAccessFile.read());
             }
-        } else System.out.println("В книге всего нет страницы с номером: " + pageNumber);
 
+            System.out.println();
+            System.out.println("для перехода на следующую страницу нажмите 's' , или для выхода нажмите 'q' : ");
+            String str = scanner.next();
 
+            System.out.println(str.toLowerCase());
 
+            if (str.toLowerCase().equals("s")) {
+                pageNumber++;
+            }
+            if (str.toLowerCase().equals("q")) {
+                break;
+            }
+
+        }
+        randomAccessFile.close();
+    }
+
+    public void readingFileInReverseOrder(String file) throws IOException {
+        RandomAccessFile randomAccessFile = new RandomAccessFile(file, "r");
+        for (int i = 1; i <= randomAccessFile.length(); i++){
+            randomAccessFile.seek(randomAccessFile.length()- i);
+            System.out.print((char) randomAccessFile.read());
+        }
+        randomAccessFile.close();
     }
 
     public static void main(String[] args) {
-       Start start = new Start();
+        Start start = new Start();
 //        start.task1();
 //
 //        try{
@@ -68,15 +93,16 @@ public class Start {
 //        }
 //        //long t = System.currentTimeMillis();
 
-        try{
-            start.task3("/home/safia/courses/Java2/OstrovSokrovish.txt");
-        } catch (IOException e){
+//        try{
+//            start.task3("/home/safia/courses/Java2/OstrovSokrovish.txt");
+//        } catch (IOException e){
+//            e.printStackTrace();
+//        }
+//    }
+        try {
+            start.readingFileInReverseOrder("/home/safia/courses/Java2/homeWork/song1.txt");
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
-
-
-
-
-
 }
