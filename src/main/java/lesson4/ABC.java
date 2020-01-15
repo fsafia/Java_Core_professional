@@ -10,7 +10,8 @@ public class ABC implements Runnable {
     }
 
     @Override
-    public void run() {
+    public void run(){
+
         for (int i = 0; i < 5; i++) {
             try {
                 monitor.print(letter);
